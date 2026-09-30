@@ -7,7 +7,7 @@ namespace NetComm
 {
     /// <summary>
     /// 82 号包(MessageID.NetModules)伪装成粒子模块的协议: 字段布局 + 切片 + 压缩, 发收两端都用这里
-    /// <para/>载荷定长 22 字节 = 1(粒子类型, 恒 0) + 4 个 float(每个 3 数据字节) + 4(int, 第 0 字节是头) + 1(发起玩家字节)
+    /// <para/>载荷定长 22 字节 = 1(粒子类型, 恒 255) + 4 个 float(每个 3 数据字节) + 4(int, 第 0 字节是头) + 1(发起玩家字节)
     /// <para/>头占 int 的第 0 字节; 发起玩家字节固定放发送者 id; 其余 15 槽放数据, 首片让出前 3 槽放总长度和压缩位, 末片让出第 14 槽放校验和
     /// </summary>
     internal static class Packet
@@ -40,6 +40,12 @@ namespace NetComm
         private const byte ExpLowBit = 0x80;     // 150 & 1 == 0, 落在第 3 字节的最高位
 
         private const int TypePos = 0;
+
+        /// <summary>
+        /// 原版 SpawnParticlesDirect 的 switch 没有 default 分支
+        /// ⇒ 收端什么都不生成, 不占粒子池也不碰懒加载贴图; 服务端只看模块 id, 照样原样转发
+        /// </summary>
+        public const byte ParticleType = (byte)-1;
         private const int HeaderPos = 17;
         private const int IntDataPos = 18;
         private const int FreePos = 21;
@@ -138,7 +144,7 @@ namespace NetComm
         public static bool Match(byte[] buffer, int offset)
         {
             if (buffer == null || offset < 0 || offset + BodyLength > buffer.Length) return false;
-            if (buffer[offset + TypePos] != 0) return false;
+            if (buffer[offset + TypePos] != ParticleType) return false;
             if ((buffer[offset + HeaderPos] & FlagMarker) == 0) return false;
 
             for (int f = 0; f < 4; ++f)
@@ -231,7 +237,7 @@ namespace NetComm
             int slotEnd = last ? ChecksumSlot - 1 : ChecksumSlot;
             int info = (totalLength & TotalLengthMask) | (compressed ? (1 << CompressedBit) : 0);
 
-            body[TypePos] = 0;
+            body[TypePos] = ParticleType;
 
             if (first)
             {
