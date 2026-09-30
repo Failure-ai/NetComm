@@ -41,11 +41,7 @@ namespace NetComm
 
         private const int TypePos = 0;
 
-        /// <summary>
-        /// 原版 SpawnParticlesDirect 的 switch 没有 default 分支
-        /// ⇒ 收端什么都不生成, 不占粒子池也不碰懒加载贴图; 服务端只看模块 id, 照样原样转发
-        /// </summary>
-        public const byte ParticleType = (byte)-1;
+        public const byte ParticleType = (byte)255;
         private const int HeaderPos = 17;
         private const int IntDataPos = 18;
         private const int FreePos = 21;

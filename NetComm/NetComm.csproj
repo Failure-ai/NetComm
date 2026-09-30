@@ -70,8 +70,5 @@
     <Compile Include="ThisMod.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Analyzer Include="..\..\..\..\a-2yx\Terraria1.4.5.8\tPlainModLoader\0Harmony.dll" />
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
