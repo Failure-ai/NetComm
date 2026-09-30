@@ -11,7 +11,7 @@ tPlainModLoader（TPM）1.4.5.8 的双端通信模组：把自定义数据塞进
 ## 一、安装
 
 
-1. Releases（发布版本）里有编译好的版本可以直接使用
+1. [Releases（发布版本）](https://github.com/Failure-ai/NetComm/releases/latest)：里面有编译好的版本可以直接使用
 
 ```
 tPlainModLoader\Mods\NetComm\
