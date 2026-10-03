@@ -18,7 +18,7 @@
     <DebugSymbols>false</DebugSymbols>
     <DebugType>none</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\..\..\a-2yx\Terraria1.4.5.8\tPlainModLoader\Mods\NetComm\</OutputPath>
+    <OutputPath>G:\a-2yx\Terraria1.4.5.8\tPlainModLoader\Mods\NetComm\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>2</WarningLevel>
